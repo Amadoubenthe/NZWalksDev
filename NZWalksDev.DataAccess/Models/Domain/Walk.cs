@@ -1,4 +1,4 @@
-﻿namespace NZWalksDev.DataAccess.Models
+﻿namespace NZWalksDev.DataAccess.Models.Domain
 {
     public class Walk
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NZWalksDev.DataAccess.Models;
+using NZWalksDev.DataAccess.Models.Domain;
 
 namespace NZWalksDev.DataAccess.Data
 {
