@@ -2,6 +2,7 @@
 using NZWalksDev.DataAccess.Data;
 using NZWalksDev.DataAccess.Models.Domain;
 using NZWalksDev.DataAccess.Models.DTO;
+using NZWalksDev.DataAccess.Repositories;
 
 namespace NZWalksDev.API.Controllers
 {
@@ -10,16 +11,21 @@ namespace NZWalksDev.API.Controllers
     public class RegionsController : ControllerBase
     {
         private readonly NZWalksDbContext _dbContext;
-        public RegionsController(NZWalksDbContext dbContext)
+        private readonly IRegionRepository _regionRepository;
+
+        public RegionsController(NZWalksDbContext dbContext, IRegionRepository regionRepository)
         {
             _dbContext = dbContext;
+            _regionRepository = regionRepository;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAll()
         {
             // Get Data From Dtabase - Domain models
-            var regionsDomain = _dbContext.Regions.ToList();
+            //var regionsDomain = _dbContext.Regions.ToList();
+
+            var regionsDomain = await _regionRepository.GetAllAsync();
 
             // Map Domain Models to DTOs
             var regionsDto = new List<RegionDto>();
