@@ -19,10 +19,11 @@ namespace NZWalksDev.DataAccess.Repositories
             return regions;
         }
 
-        public async Task<Region> CreateAsync(Region region)
+        public async Task<Region> AddAsync(Region region)
         {
-            await _dbContext.AddAsync(region);
+            await _dbContext.Regions.AddAsync(region);
             await _dbContext.SaveChangesAsync();
+
             return region;
         }
 

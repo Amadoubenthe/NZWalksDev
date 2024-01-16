@@ -75,7 +75,7 @@ namespace NZWalksDev.API.Controllers
                 RegionImageUrl = regionDtoRequest.RegionImageUrl,
             };
 
-            regionDomainModel = await _regionRepository.CreateAsync(regionDomainModel);
+            regionDomainModel = await _regionRepository.AddAsync(regionDomainModel);
 
             // Map Domain model back to DTO
             var regionDto = new RegionDto()
@@ -86,7 +86,7 @@ namespace NZWalksDev.API.Controllers
                 RegionImageUrl = regionDomainModel.RegionImageUrl,
             };
 
-            return CreatedAtAction(nameof(GetByIdAsync), new {id = regionDto.Id} ,regionDto);
+            return Ok();
 
         }
 
