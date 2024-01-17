@@ -86,7 +86,7 @@ namespace NZWalksDev.API.Controllers
                 RegionImageUrl = regionDomainModel.RegionImageUrl,
             };
 
-            return Ok();
+            return Ok(regionDto);
 
         }
 
