@@ -26,9 +26,9 @@ namespace NZWalksDev.API.Controllers
             var regionsDomain = await _regionRepository.GetAllAsync();
 
             // Map Domain Models to DTOs
-            /*var regionsDto = _mapper.Map<List<Region>>(regionsDomain);*/
+            var regionsDto = _mapper.Map<List<Region>>(regionsDomain);
 
-            var regionsDto = new List<RegionDto>();
+            /*var regionsDto = new List<RegionDto>();
 
             foreach (var region in regionsDomain)
             {
@@ -39,7 +39,7 @@ namespace NZWalksDev.API.Controllers
                     Name = region.Name,
                     RegionImageUrl = region.RegionImageUrl,
                 });
-            }
+            }*/
 
             // Return DTOs
             return Ok(regionsDto);
