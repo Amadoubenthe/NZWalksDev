@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NZWalksDev.DataAccess.Data;
 using NZWalksDev.DataAccess.Models.Domain;
 using NZWalksDev.DataAccess.Models.DTO;
 using NZWalksDev.DataAccess.Repositories;
