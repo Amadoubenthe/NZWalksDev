@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NZWalksDev.DataAccess.Models.Domain;
 using NZWalksDev.DataAccess.Models.DTO;
-using NZWalksDev.DataAccess.Repositories;
+using NZWalksDev.DataAccess.Repositories.Regions;
 
 namespace NZWalksDev.API.Controllers
 {

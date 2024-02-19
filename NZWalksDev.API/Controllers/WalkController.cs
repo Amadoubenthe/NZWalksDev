@@ -38,7 +38,7 @@ namespace NZWalksDev.API.Controllers
         {
             var walksDomain = await _walkRepository.GetAllAsync();
 
-            var walksDto = new List<Walk>();
+            /*var walksDto = new List<Walk>();
 
             foreach (var walk in walksDomain)
             {
@@ -48,9 +48,26 @@ namespace NZWalksDev.API.Controllers
                     Name = walk.Name,
                     Description = walk.Description,
                 });
-            }
+            }*/
+
+            var walksDto = _mapper.Map<List<WalkDto>>(walksDomain);
 
             return Ok(walksDto);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetAsync([FromRoute] Guid id)
+        {
+            var walkDomain = await _walkRepository.GetByIdAsync(id);
+
+            if (walkDomain == null)
+            {
+                return NotFound();
+            }
+
+            var walkDto = _mapper.Map<WalkDto>(walkDomain);
+
+            return Ok(walkDto);
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿
-using NZWalksDev.DataAccess.Models.Domain;
+﻿using NZWalksDev.DataAccess.Models.Domain;
 
-namespace NZWalksDev.DataAccess.Repositories
+namespace NZWalksDev.DataAccess.Repositories.Regions
 {
     public interface IRegionRepository
     {

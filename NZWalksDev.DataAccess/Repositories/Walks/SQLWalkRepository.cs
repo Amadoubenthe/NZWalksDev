@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
 using NZWalksDev.DataAccess.Data;
 using NZWalksDev.DataAccess.Models.Domain;
 
@@ -27,9 +28,16 @@ namespace NZWalksDev.DataAccess.Repositories.Walks
             return walks;
         }
 
-        public Task<Walk> GetByIdAsync(Guid id)
+        public async Task<Walk?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var walk = await _dbContext.Walks.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (walk == null)
+            {
+                return null;
+            }
+
+            return walk;
         }
     }
 }
