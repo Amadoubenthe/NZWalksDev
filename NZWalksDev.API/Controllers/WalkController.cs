@@ -22,15 +22,20 @@ namespace NZWalksDev.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddWalk([FromBody] WalkDtoRequest walkDtoRequest)
         {
-            // Map Dto to domain Model
-            var walkDomainModel = _mapper.Map<Walk>(walkDtoRequest);
+            if (ModelState.IsValid)
+            {
+                // Map Dto to domain Model
+                var walkDomainModel = _mapper.Map<Walk>(walkDtoRequest);
 
-            await _walkRepository.AddAsync(walkDomainModel);
+                await _walkRepository.AddAsync(walkDomainModel);
 
-            // Map Domain Model to Dto
-            var walkDto = _mapper.Map<WalkDto>(walkDomainModel);
+                // Map Domain Model to Dto
+                var walkDto = _mapper.Map<WalkDto>(walkDomainModel);
 
-            return Ok(walkDto);
+                return Ok(walkDto);
+            }
+
+            return BadRequest(ModelState);
         }
 
         [HttpGet]
@@ -73,19 +78,24 @@ namespace NZWalksDev.API.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateWalk([FromRoute] Guid id, UpdateWalkRequestDto updateWalkRequestDto)
         {
-            // Map DTO to Domain Model
-            var walkDomainModel = _mapper.Map<Walk>(updateWalkRequestDto);
-
-            walkDomainModel = await _walkRepository.UpdateAsync(id, walkDomainModel);
-
-            if (walkDomainModel == null)
+            if (ModelState.IsValid)
             {
-                return NotFound(); 
+                // Map DTO to Domain Model
+                var walkDomainModel = _mapper.Map<Walk>(updateWalkRequestDto);
+
+                walkDomainModel = await _walkRepository.UpdateAsync(id, walkDomainModel);
+
+                if (walkDomainModel == null)
+                {
+                    return NotFound();
+                }
+
+                var walkDto = _mapper.Map<WalkDto>(walkDomainModel);
+
+                return Ok(walkDto);
             }
-
-            var walkDto = _mapper.Map<WalkDto>(walkDomainModel);
-
-            return Ok(walkDto);
+            
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id:guid}")]
