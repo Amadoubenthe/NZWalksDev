@@ -15,6 +15,7 @@ namespace NZWalksDev.DataAccess.Mappings
             // Walk
             CreateMap<WalkDtoRequest, Walk>().ReverseMap();
             CreateMap<WalkDto, Walk>().ReverseMap();
+            CreateMap<UpdateWalkRequestDto, Walk>().ReverseMap();
         }
     }
 }

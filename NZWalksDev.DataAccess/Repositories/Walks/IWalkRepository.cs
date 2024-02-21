@@ -9,5 +9,7 @@ namespace NZWalksDev.DataAccess.Repositories.Walks
         Task<List<Walk>> GetAllAsync();
         Task<Walk?> GetByIdAsync(Guid id);
         Task<Walk> AddAsync(Walk walk);
+        Task<Walk> UpdateAsync(Guid Id, Walk walk);
+        Task<Walk?> DeleteAsync(Guid id);
     }
 }
