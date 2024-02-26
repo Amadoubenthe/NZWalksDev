@@ -2,7 +2,7 @@
 using NZWalksDev.DataAccess.Data;
 using NZWalksDev.DataAccess.Models.Domain;
 
-namespace NZWalksDev.DataAccess.Repositories
+namespace NZWalksDev.DataAccess.Repositories.Regions
 {
     public class SQLRegionRepository : IRegionRepository
     {
@@ -59,9 +59,9 @@ namespace NZWalksDev.DataAccess.Repositories
 
         public async Task<Region?> DeleteAsync(Guid id)
         {
-           var existingRegion = await _dbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
+            var existingRegion = await _dbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
 
-            if(existingRegion == null)
+            if (existingRegion == null)
             {
                 return null;
             }
