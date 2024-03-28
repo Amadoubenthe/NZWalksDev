@@ -21,8 +21,12 @@ namespace NZWalksDev.DataAccess.Repositories.Walks
             await _dbContext.SaveChangesAsync();
             return walk;
         }
+        /*Task<List<Walk>> IWalkRepository.GetAllAsync(string? filterOn, string? filterQuery, string? sortBy, bool isAscending, int pageNumber, int pageSize)
+        {
+            throw new NotImplementedException();
+        }*/
 
-        public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null, string? sortBy = null, bool? isAscending = true)
+        public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null, string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 1000)
         {
             var walks = _dbContext.Walks.AsQueryable();
 
@@ -40,16 +44,19 @@ namespace NZWalksDev.DataAccess.Repositories.Walks
             {
                 if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
                 {
-                    walks = (bool)isAscending ? walks.OrderBy(x => x.Name) : walks.OrderByDescending(x => x.Name);
+                    walks = isAscending ? walks.OrderBy(x => x.Name) : walks.OrderByDescending(x => x.Name);
                 }
 
                 if (sortBy.Equals("Length", StringComparison.OrdinalIgnoreCase))
                 {
-                    walks = (bool)isAscending ? walks.OrderBy(x => x.LengthInKm) : walks.OrderByDescending(x => x.LengthInKm);
+                    walks = isAscending ? walks.OrderBy(x => x.LengthInKm) : walks.OrderByDescending(x => x.LengthInKm);
                 }
             }
 
-            return await walks.ToListAsync();
+            // Pagination
+            var skipResults = (pageNumber - 1) * pageSize;
+
+            return await walks.Skip(skipResults).Take(pageSize).ToListAsync();
             // var walks = await _dbContext.Walks.ToListAsync();
         }
 
@@ -98,6 +105,26 @@ namespace NZWalksDev.DataAccess.Repositories.Walks
             await _dbContext.SaveChangesAsync();
 
             return walk;
+        }
+
+        Task<Walk?> IWalkRepository.GetByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Walk> IWalkRepository.AddAsync(Walk walk)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Walk> IWalkRepository.UpdateAsync(Guid Id, Walk walk)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Walk?> IWalkRepository.DeleteAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
