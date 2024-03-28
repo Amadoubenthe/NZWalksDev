@@ -19,6 +19,7 @@ namespace NZWalksDev.API.Controllers
             _mapper = mapper;
         }
 
+        // CREATE Walks
         [HttpPost]
         public async Task<IActionResult> AddWalk([FromBody] WalkDtoRequest walkDtoRequest)
         {
@@ -38,22 +39,13 @@ namespace NZWalksDev.API.Controllers
             return BadRequest(ModelState);
         }
 
+        // GET Walks
+        // GET: /api/walks?filterOn=Name&filterQuery=Track&sortBy=Name&isAscending=true
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult> Get([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+            [FromQuery] string? sortBy, [FromQuery] bool? isAscending)
         {
-            var walksDomain = await _walkRepository.GetAllAsync();
-
-            /*var walksDto = new List<Walk>();
-
-            foreach (var walk in walksDomain)
-            {
-                walksDto.Add(new Walk()
-                {
-                    Id = walk.Id,
-                    Name = walk.Name,
-                    Description = walk.Description,
-                });
-            }*/
+            var walksDomain = await _walkRepository.GetAllAsync(filterOn, filterQuery, sortBy, isAscending);
 
             var walksDto = _mapper.Map<List<WalkDto>>(walksDomain);
 
